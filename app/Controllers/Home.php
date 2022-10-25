@@ -4,13 +4,14 @@ namespace App\Controllers;
 
 class Home extends BaseController
 {
-    public function index()
+    public function index($segment = false)
     {
-        return view('form_scan_request');
-    }
-
-    public function login()
-    {
-        return view('login');
+        if($segment == false){
+            $wh = 'WHRM01';
+        }else{
+            $wh = $segment;
+        }
+        $data['wh'] = $wh;
+        return view('board', $data);
     }
 }

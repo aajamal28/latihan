@@ -58,7 +58,8 @@ class ScanController extends BaseController
 
     public function getDataScan($type,$warehouse)
 	{
-        $date = date('Y-m-d');
+        $today = date('Y-m-d');
+        $date = date('Y-m-d', strtotime('-1 days', strtotime($today)));
 		$data = $this->scanModel->getData($type, $warehouse, $date);
 		return $this->response->setJSON(["data" => $data]);
 	}

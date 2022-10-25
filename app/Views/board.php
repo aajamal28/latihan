@@ -46,7 +46,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <li class="nav-item dropdown">
                         <a class="nav-link text-primary" href="#">
                             <i class="fas fa-sign-in-alt"></i> Login
-
                         </a>
                     </li>
                 </ul>
@@ -88,7 +87,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                                 <input type="text" class="form-control form-control-lg" id="scType" name="scType" value="OUT" readonly>
                                             </div>
                                             <div class="col-md-2">
-                                                <input type="text" class="form-control form-control-lg" id="scWarehouse" name="scWarehouse" value="WHRM01" readonly>
+                                                <input type="text" class="form-control form-control-lg" id="scWarehouse" name="scWarehouse" value="<?=$wh?>" readonly>
                                             </div>
                                             <div class="col-md-6">
                                                 <input type="text" class="form-control form-control-lg" id="scLabel" name="scLabel" placeholder="Please Scan Material Label" autofocus>
@@ -179,13 +178,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 dom: "Bfrtip",
                 "ajax": "<?= base_url("/data-scan") ?>/" + $("#scType").val() + "/" + $("#scWarehouse").val(),
                 "dataSrc": "data",
+                scrollY: '500px',
+                scrollCollapse: true,
+                paging: false,
                 buttons: [{
                     extend: 'excelHtml5',
                     title: `Scan_Out_File`
                 }, ],
                 stateSave: true,
-                columns: [
-                    {
+                columns: [{
                         data: "sc_date",
                     },
                     {
@@ -203,24 +204,25 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     {
                         data: "itm_unit",
                     },
-                    
+
                 ],
                 order: [
                     [0, "desc"],
                 ],
             });
 
-            $('#scLabel').blur(function() {
+            $('#scLabel').keyup(function() {
                 var type = $('#scType').val();
                 var wh = $('#scWarehouse').val();
                 var label = $('#scLabel').val();
 
                 if (label == "") {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'Please Scan Label!'
-                    });
+                    // Swal.fire({
+                    //     icon: 'error',
+                    //     title: 'Oops...',
+                    //     text: 'Please Scan Label!'
+                    // });
+                    $("#scLabel").focus();
                 }
 
                 $.ajax({

@@ -37,7 +37,7 @@ class ScanModel extends Model
 
 	public function getData($type, $warehouse, $date)
 	{	
-		$sql = $this->db->query("SELECT * FROM summary_scan WHERE sc_type = '$type' AND sc_warehouse = '$warehouse' AND sc_date = '$date'");
+		$sql = $this->db->query("SELECT * FROM summary_scan WHERE sc_type = '$type' AND sc_warehouse = '$warehouse' AND sc_date >= '$date'");
 		return $sql->getResultObject();
 	}
 }
